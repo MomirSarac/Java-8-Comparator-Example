@@ -46,24 +46,25 @@ public class Java8ComparatorExample {
 
         // prints all the items by it's value - ascending order
         // remember, it's a sorted list now, check code above...
-        listOfItems.forEach(System.out::println);
+        listOfItems.forEach(System.out::println); // method reference applied here
 
         // prints all the items using condition for 
         // acqusition of all the items which price value is greater than or equals 750
         getItemsUsingCondition(listOfItems, i -> i.getPriceOfTheItem() >= 750, i -> System.out.println(i));
+        // same as above getItemsUsingCondition(listOfItems, i -> i.getPriceOfTheItem() >= 750, System.out::println);
         // even shorter in Java 1.8 without a need to use printItemsUsingCondition method
         listOfItems.stream().filter(i -> i.getPriceOfTheItem() >= 750).forEach(System.out::println);
 
         // prints all the items using condition for 
         // acqusition of all the items which contain 6s in an item name.
-        getItemsUsingCondition(listOfItems, i -> i.getNameOfTheItem().contains("6s"), i -> System.out.println(i));
+        getItemsUsingCondition(listOfItems, i -> i.getNameOfTheItem().contains("6s"), System.out::println);
         // even shorter in Java 1.8 without a need to use printItemsUsingCondition method
         listOfItems.stream().filter(i -> i.getNameOfTheItem().contains("6s")).forEach(System.out::println);
 
     }
 
     /**
-     * Prints all condition binded items from a list
+     * Gets all condition binded items from a list
      *
      * @param listOfItems
      * @param condition
@@ -71,7 +72,6 @@ public class Java8ComparatorExample {
     private static void getItemsUsingCondition(List<Item> listOfItems, Predicate<Item> predicate, Consumer<Item> consumer) {
         for (Item i : listOfItems) {
             if (predicate.test(i)) {
-                //System.out.println(i.toString());
                 consumer.accept(i);
             }
         }
